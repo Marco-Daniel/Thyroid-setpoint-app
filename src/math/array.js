@@ -31,7 +31,7 @@ export const medianFromArray = arr => {
  * @param {number[]} [arr=[]] - You can use an already existing array to add the numbers to.
  *
  */
-const decreasingNumbersArray = (start, step = 1, arr = []) => {
+export const decreasingNumbersArray = (start, step = 1, arr = []) => {
   for (i = start; i > 0; i = i - step) arr.push(i)
   return [...arr]
 }
