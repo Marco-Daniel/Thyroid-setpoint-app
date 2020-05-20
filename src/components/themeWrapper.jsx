@@ -42,7 +42,7 @@ const ThemeWrapper = ({ children }) => {
   )
 }
 
-Layout.propTypes = {
+ThemeWrapper.propTypes = {
   children: PropTypes.node.isRequired,
 }
 
