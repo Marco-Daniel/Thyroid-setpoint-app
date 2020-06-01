@@ -3,6 +3,8 @@
  *
  * @param {number[]} arr - Flat array containing numbers.
  *
+ * @returns {number}
+ *
  */
 export const meanFromArray = arr => {
   const total = arr.reduce((acc, val) => acc + val, 0)
@@ -14,6 +16,8 @@ export const meanFromArray = arr => {
  * Calculates the median from all the numbers in the array.
  *
  * @param {number[]} arr - Flat array containing numbers.
+ *
+ * @returns {number}
  *
  */
 export const medianFromArray = arr => {
@@ -29,6 +33,8 @@ export const medianFromArray = arr => {
  * @param {number} start - Start the returned array from this number.
  * @param {number} [step=1] - Decrease each step by this value.
  * @param {number[]} [arr=[]] - You can use an already existing array to add the numbers to.
+ *
+ * @returns {number[]}
  *
  */
 export const decreasingNumbersArray = (start, step = 1, arr = []) => {
