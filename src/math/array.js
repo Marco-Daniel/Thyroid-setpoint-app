@@ -35,3 +35,15 @@ export const decreasingNumbersArray = (start, step = 1, arr = []) => {
   for (i = start; i > 0; i = i - step) arr.push(i)
   return [...arr]
 }
+/**
+ * To be used by Array.prototype.sort to sort an two-dimensional array on the first item in the array.
+ *
+ */
+
+export const sort2DArray = (a, b) => {
+  if (a[0] === b[0]) {
+    return 0
+  } else {
+    return a[0] < b[0] ? -1 : 1
+  }
+}
