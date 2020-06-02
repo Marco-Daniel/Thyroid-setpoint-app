@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { makeStyles } from "@material-ui/core/styles"
 import Typography from "@material-ui/core/Typography"
 import Grid from "@material-ui/core/Grid"
@@ -36,15 +36,13 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const DisplaySetpoint = ({ state, dispatch }) => {
-  console.log(state)
-
   const classes = useStyles()
   const { setpoint } = state
 
-  if (state.values.length === 0) {
-    dispatch({ type: "SWITCH_SCREEN", payload: "user-input" })
-    return null
-  }
+  useEffect(() => {
+    if (state.values.length === 0) dispatch({ type: "SWITCH_SCREEN", payload: "user-input" })
+    if (state.values.length > 1) dispatch({ type: "CALC_SETPOINT" })
+  }, [state.values])
 
   if (errorInCalculations(setpoint)) {
     return (
