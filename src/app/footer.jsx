@@ -35,9 +35,10 @@ const useStyles = makeStyles(theme => ({
   buttons: {
     margin: "0 auto",
   },
+  offset: theme.mixins.toolbar,
 }))
 
-const Footer = ({ dispatch }) => {
+const Footer = ({ dispatch, disableSetpointButton }) => {
   const classes = useStyles()
   const [open, setOpen] = useState(false)
   const [ft4, setFt4] = useState("")
@@ -81,18 +82,23 @@ const Footer = ({ dispatch }) => {
     return errors
   }
 
+  const calculateSetpoint = () => dispatch({ type: "CALC_SETPOINT" })
+
   return (
     <div className={classes.root}>
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
           <ButtonGroup disableElevation size="small" className={classes.buttons}>
-            <Button variant="outlined">Bereken setpoint</Button>
+            <Button variant="outlined" disabled={disableSetpointButton} onClick={calculateSetpoint}>
+              Bereken setpoint
+            </Button>
             <Button variant="contained" onClick={handleClickOpen}>
               Voeg waarde toe
             </Button>
           </ButtonGroup>
         </Toolbar>
       </AppBar>
+      <div className={classes.offset} />
 
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-add-values">
         <form onSubmit={handleSubmit}>
