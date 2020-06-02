@@ -6,10 +6,13 @@ import Typography from "@material-ui/core/Typography"
 
 const useStyles = makeStyles(theme => ({
   root: {
-    paddingTop: theme.spacing(2),
+    paddingTop: theme.spacing(1.5),
   },
   noValues: {
     paddingTop: theme.spacing(2),
+  },
+  gridItem: {
+    margin: theme.spacing(0.5),
   },
 }))
 
@@ -23,9 +26,9 @@ const DisplayValues = ({ values, dispatch }) => {
     )
 
   return (
-    <Grid container direction="column" justify="center" align="center" className={classes.root} spacing={1}>
+    <Grid container direction="column" justify="center" align="center" className={classes.root}>
       {values.map(value => (
-        <Grid item xs={12} key={value.ft4 + value.tsh}>
+        <Grid item xs={12} key={value.ft4 + value.tsh} className={classes.gridItem}>
           <DisplayCard key={value.ft4 - value.tsh} ft4={value.ft4} tsh={value.tsh} onClick={() => dispatch({ type: "REMOVE", payload: value })} />
         </Grid>
       ))}
