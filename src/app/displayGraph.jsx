@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react"
+import React, { useRef, useEffect, useState } from "react"
 import Chart from "chart.js"
 import { decreasingNumbersArray } from "../math/array"
 import { ft4ToTSH } from "../math/thyroid"
@@ -13,6 +13,11 @@ const createSmoothLine = (slope, multiplier) => {
 
 const DisplayGraph = ({ state }) => {
   const canvasRef = useRef()
+  const [minFT4, setMinFT4] = useState(Math.min(...state.values.map(o => o.ft4), 1000) * 0.9)
+  const [maxFT4, setMaxFT4] = useState(Math.max(...state.values.map(o => o.ft4), 0) * 1.05)
+  const [maxTSH, setMaxTSH] = useState(Math.max(...state.values.map(o => o.tsh), 0) * 1.1)
+
+  console.log(state)
 
   useEffect(() => {
     const chart = new Chart(
@@ -24,8 +29,8 @@ const DisplayGraph = ({ state }) => {
             xAxes: [
               {
                 ticks: {
-                  min: 5,
-                  max: 22,
+                  min: minFT4,
+                  max: maxFT4,
                 },
                 scaleLabel: {
                   display: true,
@@ -37,7 +42,7 @@ const DisplayGraph = ({ state }) => {
               {
                 ticks: {
                   min: 0,
-                  max: 70,
+                  max: maxTSH,
                 },
                 scaleLabel: {
                   display: true,
@@ -85,7 +90,7 @@ const DisplayGraph = ({ state }) => {
 
     // clean-up before next render
     return () => chart.destroy()
-  }, [state])
+  }, [state, minFT4, maxFT4, maxTSH])
 
   return <canvas ref={canvasRef} />
 }
