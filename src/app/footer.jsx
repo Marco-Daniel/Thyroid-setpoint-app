@@ -42,7 +42,9 @@ const Footer = ({ dispatch }) => {
     setTsh("")
   }
 
-  const handleUserInput = () => {
+  const handleSubmit = e => {
+    e.preventDefault()
+
     if (!isNaN(ft4) || !isNaN(tsh)) {
       dispatch({ type: "ADD", payload: { ft4, tsh } })
       cleanState()
@@ -66,19 +68,21 @@ const Footer = ({ dispatch }) => {
       </AppBar>
 
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-add-values">
-        <DialogContent>
-          <DialogContentText>Voeg uw FT4 en TSH labwaarde toe.</DialogContentText>
-          <TextField autoFocus margin="dense" id="ft4" label="FT4 labwaarde" type="text" fullWidth variant="outlined" value={ft4} onChange={e => setFt4(e.target.value)} />
-          <TextField margin="dense" id="tsh" label="TSH labwaarde" type="text" fullWidth variant="outlined" value={tsh} onChange={e => setTsh(e.target.value)} />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Annuleer
-          </Button>
-          <Button onClick={handleUserInput} color="primary">
-            Voeg toe
-          </Button>
-        </DialogActions>
+        <form onSubmit={handleSubmit}>
+          <DialogContent>
+            <DialogContentText>Voeg uw FT4 en TSH labwaarde toe.</DialogContentText>
+            <TextField autoFocus margin="dense" id="ft4" label="FT4 labwaarde" type="text" fullWidth variant="outlined" value={ft4} onChange={e => setFt4(e.target.value)} />
+            <TextField margin="dense" id="tsh" label="TSH labwaarde" type="text" fullWidth variant="outlined" value={tsh} onChange={e => setTsh(e.target.value)} />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} color="primary">
+              Annuleer
+            </Button>
+            <Button type="submit" color="primary">
+              Voeg toe
+            </Button>
+          </DialogActions>
+        </form>
       </Dialog>
     </div>
   )
