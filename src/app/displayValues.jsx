@@ -8,7 +8,6 @@ const useStyles = makeStyles(theme => ({
   root: {
     paddingTop: theme.spacing(1.5),
     paddingBottom: theme.spacing(1.5),
-    overflowY: "scroll",
   },
   noValues: {
     paddingTop: theme.spacing(2),
