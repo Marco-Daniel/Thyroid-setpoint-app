@@ -31,10 +31,11 @@ const Header = ({ displayBack, dispatch }) => {
 
   const goToDisplayValues = () => dispatch({ type: "SWITCH_SCREEN", payload: "user-input" })
 
-  const addExampleData = () => {
-    dispatch({ type: "CREATE_EXAMPLE_DATA" })
+  const addExampleData = index => {
+    dispatch({ type: "CREATE_EXAMPLE_DATA", payload: index })
     handleClose()
   }
+
   const clearInput = () => {
     dispatch({ type: "CLEAR_USER_INPUT" })
     handleClose()
@@ -67,7 +68,10 @@ const Header = ({ displayBack, dispatch }) => {
       </AppBar>
 
       <Menu id="more-actions" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
-        <MenuItem onClick={addExampleData}>Voorbeeld data</MenuItem>
+        <MenuItem onClick={() => addExampleData(0)}>Voorbeeld 1</MenuItem>
+        <MenuItem onClick={() => addExampleData(1)}>Voorbeeld 2</MenuItem>
+        <MenuItem onClick={() => addExampleData(2)}>Voorbeeld 3</MenuItem>
+        <MenuItem onClick={() => addExampleData(3)}>Voorbeeld 4</MenuItem>
         <MenuItem onClick={clearInput}>Verwijder alle data</MenuItem>
       </Menu>
     </>
