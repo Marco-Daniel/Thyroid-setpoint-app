@@ -2,91 +2,156 @@ import React, { useReducer } from "react"
 import Header from "./header"
 import Footer from "./footer"
 import ScreenController from "./screenController"
-import { sort2DArray } from "../math/array"
-import { calcTshSetpoint, calcFt4Setpoint } from "../math/thyroid"
+import { sort2DArray, medianFromArray } from "../math/array"
+import { calcTshSetpoint, calcFt4Setpoint, calculateCurvature } from "../math/thyroid"
 import ExponentialRegression from "ml-regression-exponential"
+import regression from "regression"
 
 const example = [
-  {
-    ft4: 13,
-    tsh: 2.56,
-  },
-  {
-    ft4: 12,
-    tsh: 40.82,
-  },
-  {
-    ft4: 11.8,
-    tsh: 46.43,
-  },
-  {
-    ft4: 15.5,
-    tsh: 10.52,
-  },
-  {
-    ft4: 15.6,
-    tsh: 5.59,
-  },
-  {
-    ft4: 16,
-    tsh: 6.27,
-  },
-  {
-    ft4: 18,
-    tsh: 2.33,
-  },
-  {
-    ft4: 16.8,
-    tsh: 1.29,
-  },
-  {
-    ft4: 17.4,
-    tsh: 2.55,
-  },
-  {
-    ft4: 18.5,
-    tsh: 1.49,
-  },
-  {
-    ft4: 16.6,
-    tsh: 2.42,
-  },
-  {
-    ft4: 17,
-    tsh: 1.96,
-  },
-  {
-    ft4: 17.4,
-    tsh: 1.79,
-  },
-  {
-    ft4: 22.6,
-    tsh: 0.14,
-  },
-  {
-    ft4: 17.8,
-    tsh: 0.36,
-  },
-  {
-    ft4: 14.4,
-    tsh: 2.3,
-  },
-  {
-    ft4: 15.5,
-    tsh: 2.93,
-  },
-  {
-    ft4: 14.5,
-    tsh: 3.39,
-  },
-  {
-    ft4: 17.7,
-    tsh: 1.63,
-  },
-  {
-    ft4: 17.9,
-    tsh: 3.33,
-  },
+  [
+    {
+      ft4: 13,
+      tsh: 2.56,
+    },
+    {
+      ft4: 12,
+      tsh: 40.82,
+    },
+    {
+      ft4: 11.8,
+      tsh: 46.43,
+    },
+    {
+      ft4: 15.5,
+      tsh: 10.52,
+    },
+    {
+      ft4: 15.6,
+      tsh: 5.59,
+    },
+    {
+      ft4: 16,
+      tsh: 6.27,
+    },
+    {
+      ft4: 18,
+      tsh: 2.33,
+    },
+    {
+      ft4: 16.8,
+      tsh: 1.29,
+    },
+    {
+      ft4: 17.4,
+      tsh: 2.55,
+    },
+    {
+      ft4: 18.5,
+      tsh: 1.49,
+    },
+    {
+      ft4: 16.6,
+      tsh: 2.42,
+    },
+    {
+      ft4: 17,
+      tsh: 1.96,
+    },
+    {
+      ft4: 17.4,
+      tsh: 1.79,
+    },
+    {
+      ft4: 22.6,
+      tsh: 0.14,
+    },
+    {
+      ft4: 17.8,
+      tsh: 0.36,
+    },
+    {
+      ft4: 14.4,
+      tsh: 2.3,
+    },
+    {
+      ft4: 15.5,
+      tsh: 2.93,
+    },
+    {
+      ft4: 14.5,
+      tsh: 3.39,
+    },
+    {
+      ft4: 17.7,
+      tsh: 1.63,
+    },
+    {
+      ft4: 17.9,
+      tsh: 3.33,
+    },
+  ],
+  [
+    {
+      ft4: 22,
+      tsh: 0.05,
+    },
+    {
+      ft4: 6,
+      tsh: 63,
+    },
+    {
+      ft4: 10,
+      tsh: 34,
+    },
+    {
+      ft4: 13,
+      tsh: 11,
+    },
+    {
+      ft4: 12,
+      tsh: 5,
+    },
+    {
+      ft4: 15,
+      tsh: 4,
+    },
+  ],
+  [
+    {
+      ft4: 6,
+      tsh: 63,
+    },
+    {
+      ft4: 10,
+      tsh: 34,
+    },
+    {
+      ft4: 13,
+      tsh: 11,
+    },
+    {
+      ft4: 12,
+      tsh: 5,
+    },
+    {
+      ft4: 15,
+      tsh: 4,
+    },
+  ],
+  [
+    {
+      ft4: 18.2,
+      tsh: 0.81,
+    },
+    {
+      ft4: 14.6,
+      tsh: 4.1,
+    },
+    {
+      ft4: 16.7,
+      tsh: 4.1,
+    },
+  ],
 ]
 
 const reducer = (state, action) => {
@@ -112,7 +177,7 @@ const reducer = (state, action) => {
       return { ...state, values: [...newValues] }
 
     case "CREATE_EXAMPLE_DATA":
-      return { ...state, values: [...example] }
+      return { ...state, values: [...example[action.payload]] }
 
     case "CLEAR_USER_INPUT":
       return { ...state, values: [], setpoint: {} }
@@ -132,27 +197,54 @@ const reducer = (state, action) => {
         }, [])
         .sort(sort2DArray)
 
-      const regression = new ExponentialRegression(
+      const mlReg = new ExponentialRegression(
         data.map(p => p[0]),
         data.map(p => p[1])
       )
 
-      const { r2 } = regression.score(
+      const { r2 } = mlReg.score(
         data.map(p => p[0]),
         data.map(p => p[1])
       )
 
-      const setpointTSH = calcTshSetpoint(regression.A)
-      const setpointFT4 = calcFt4Setpoint(regression.A, regression.B)
+      const reg = regression.exponential(data, { precision: 100 })
+
+      const median = medianFromArray(data.map(p => p[0]))
+
+      const mlCurve = calculateCurvature(mlReg.A, mlReg.B, median)
+      const regCurve = calculateCurvature(reg.equation[1], reg.equation[0], median)
+
+      console.log(median)
+      console.log(`ml: ${mlCurve}`)
+      console.log(`reg: ${regCurve}`)
+
+      let slope = 0
+      let multiplier = 0
+      let rSquared = 0
+
+      if (regCurve > mlCurve) {
+        multiplier = reg.equation[0]
+        slope = reg.equation[1]
+        rSquared = reg.r2
+        console.log("regression lib")
+      } else {
+        multiplier = mlReg.B
+        slope = mlReg.A
+        rSquared = r2
+        console.log("ML lib")
+      }
+
+      const setpointTSH = calcTshSetpoint(slope)
+      const setpointFT4 = calcFt4Setpoint(slope, multiplier)
 
       return {
         ...state,
         setpoint: {
-          slope: regression.A,
-          multiplier: regression.B,
+          slope,
+          multiplier,
           ft4: setpointFT4,
           tsh: setpointTSH,
-          r2,
+          r2: rSquared,
         },
         screen: "calculated",
       }
