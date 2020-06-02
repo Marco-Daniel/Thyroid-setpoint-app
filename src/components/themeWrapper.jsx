@@ -11,15 +11,15 @@ const ThemeWrapper = ({ children }) => {
   const defaultTheme = createMuiTheme()
   const theme = createMuiTheme({
     palette: {
-      primary: {
-        main: primaryColor,
-      },
-      secondary: {
-        main: secondaryColor,
-      },
-      info: {
-        main: secondaryColor,
-      },
+      // primary: {
+      //   main: primaryColor,
+      // },
+      // secondary: {
+      //   main: secondaryColor,
+      // },
+      // info: {
+      //   main: secondaryColor,
+      // },
     },
     mixins: {
       toolbar: {
