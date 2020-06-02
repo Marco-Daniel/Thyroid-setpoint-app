@@ -38,7 +38,7 @@ export const medianFromArray = arr => {
  *
  */
 export const decreasingNumbersArray = (start, step = 1, arr = []) => {
-  for (i = start; i > 0; i = i - step) arr.push(i)
+  for (let i = start; i > 0; i = i - step) arr.push(i)
   return [...arr]
 }
 /**
