@@ -28,12 +28,7 @@ const reducer = (state, action) => {
 }
 
 const SetpointApp = () => {
-  const [state, dispatch] = useReducer(reducer, {
-    values: [
-      { ft4: 18, tsh: 2 },
-      { ft4: 18.06, tsh: 2.25 },
-    ],
-  })
+  const [state, dispatch] = useReducer(reducer, { values: [] })
 
   return (
     <>
