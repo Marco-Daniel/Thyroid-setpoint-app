@@ -14,8 +14,6 @@ const createSmoothLine = (slope, multiplier) => {
 const DisplayGraph = ({ state }) => {
   const canvasRef = useRef()
 
-  console.log(state)
-
   useEffect(() => {
     const chart = new Chart(
       canvasRef.current.getContext("2d"),
