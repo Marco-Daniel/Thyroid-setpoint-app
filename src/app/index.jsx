@@ -257,11 +257,13 @@ const reducer = (state, action) => {
 const SetpointApp = () => {
   const [state, dispatch] = useReducer(reducer, { values: [], setpoint: {}, screen: "user-input" })
 
+  const calculatedScreen = state.screen === "calculated"
+
   return (
     <>
-      <Header displayBack={state.screen === "calculated"} dispatch={dispatch} />
+      <Header displayBack={calculatedScreen} dispatch={dispatch} />
       <ScreenController state={state} dispatch={dispatch} />
-      <Footer dispatch={dispatch} disableSetpointButton={state.values.length < 2} />
+      <Footer dispatch={dispatch} disableSetpointButton={state.values.length < 2} hide={calculatedScreen} />
     </>
   )
 }

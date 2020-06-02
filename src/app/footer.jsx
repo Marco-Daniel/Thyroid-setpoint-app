@@ -9,6 +9,7 @@ import Dialog from "@material-ui/core/Dialog"
 import DialogActions from "@material-ui/core/DialogActions"
 import DialogContent from "@material-ui/core/DialogContent"
 import DialogContentText from "@material-ui/core/DialogContentText"
+import Slide from "@material-ui/core/Slide"
 
 const DisplayErrors = ({ errors }) => {
   const style = { color: "red" }
@@ -38,7 +39,7 @@ const useStyles = makeStyles(theme => ({
   offset: theme.mixins.toolbar,
 }))
 
-const Footer = ({ dispatch, disableSetpointButton }) => {
+const Footer = ({ dispatch, disableSetpointButton, hide }) => {
   const classes = useStyles()
   const [open, setOpen] = useState(false)
   const [ft4, setFt4] = useState("")
@@ -86,18 +87,20 @@ const Footer = ({ dispatch, disableSetpointButton }) => {
 
   return (
     <div className={classes.root}>
-      <AppBar position="fixed" className={classes.appBar}>
-        <Toolbar>
-          <ButtonGroup disableElevation size="small" className={classes.buttons}>
-            <Button variant="outlined" disabled={disableSetpointButton} onClick={calculateSetpoint}>
-              Bereken setpoint
-            </Button>
-            <Button variant="contained" onClick={handleClickOpen}>
-              Voeg waarde toe
-            </Button>
-          </ButtonGroup>
-        </Toolbar>
-      </AppBar>
+      <Slide direction="up" in={!hide} mountOnEnter unmountOnExit>
+        <AppBar position="fixed" className={classes.appBar}>
+          <Toolbar>
+            <ButtonGroup disableElevation size="small" className={classes.buttons}>
+              <Button variant="outlined" disabled={disableSetpointButton} onClick={calculateSetpoint}>
+                Bereken setpoint
+              </Button>
+              <Button variant="contained" onClick={handleClickOpen}>
+                Voeg waarde toe
+              </Button>
+            </ButtonGroup>
+          </Toolbar>
+        </AppBar>
+      </Slide>
       <div className={classes.offset} />
 
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-add-values">
