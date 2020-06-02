@@ -32,15 +32,6 @@ const ThemeWrapper = ({ children }) => {
         },
       },
     },
-    overrides: {
-      MuiCssBaseline: {
-        "@global": {
-          body: {
-            overflowX: "hidden",
-          },
-        },
-      },
-    },
   })
 
   return (
