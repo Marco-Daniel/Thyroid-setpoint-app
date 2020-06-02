@@ -154,6 +154,8 @@ const example = [
   ],
 ]
 
+const round = num => Math.round((num + Number.EPSILON) * 10) / 10
+
 const reducer = (state, action) => {
   switch (action.type) {
     case "ADD":
@@ -214,10 +216,6 @@ const reducer = (state, action) => {
       const mlCurve = calculateCurvature(mlReg.A, mlReg.B, median)
       const regCurve = calculateCurvature(reg.equation[1], reg.equation[0], median)
 
-      console.log(median)
-      console.log(`ml: ${mlCurve}`)
-      console.log(`reg: ${regCurve}`)
-
       let slope = 0
       let multiplier = 0
       let rSquared = 0
@@ -226,12 +224,10 @@ const reducer = (state, action) => {
         multiplier = reg.equation[0]
         slope = reg.equation[1]
         rSquared = reg.r2
-        console.log("regression lib")
       } else {
         multiplier = mlReg.B
         slope = mlReg.A
         rSquared = r2
-        console.log("ML lib")
       }
 
       const setpointTSH = calcTshSetpoint(slope)
@@ -247,6 +243,12 @@ const reducer = (state, action) => {
           r2: rSquared,
         },
         screen: "calculated",
+        graph: {
+          minFT4: round(Math.min(...state.values.map(o => o.ft4), 1000) * 0.9),
+          maxFT4: round(Math.max(...state.values.map(o => o.ft4), 0) * 1.05),
+          minTSH: 0,
+          maxTSH: round(Math.max(...state.values.map(o => o.tsh), 0) * 1.1),
+        },
       }
 
     default:
@@ -255,7 +257,7 @@ const reducer = (state, action) => {
 }
 
 const SetpointApp = () => {
-  const [state, dispatch] = useReducer(reducer, { values: [], setpoint: {}, screen: "user-input" })
+  const [state, dispatch] = useReducer(reducer, { values: [], setpoint: {}, screen: "user-input", graph: {} })
 
   const calculatedScreen = state.screen === "calculated"
 
