@@ -1,3 +1,5 @@
+import { fraction } from "mathjs"
+
 /**
  * Used to calculate the multiplier for other calculations.
  * Returns an float.
@@ -44,3 +46,8 @@ export const calcTshSetpoint = slope => 1 / (-slope * Math.sqrt(2))
  * @param {number} ft4 - real world ft4 value.
  */
 export const ft4ToTSH = (slope, multiplier, ft4) => multiplier * Math.exp(slope * ft4)
+
+export const calculateCurvature = (slope, multiplier, ft4 = 18) => {
+  const posSlope = -1 * slope
+  return (posSlope ** 2 * multiplier * Math.exp(-(posSlope * ft4))) / (1 + (posSlope ** 2 * multiplier ** 2 * Math.exp(-2 * posSlope * multiplier)) ** fraction(3, 2))
+}
