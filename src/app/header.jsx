@@ -19,18 +19,16 @@ const Header = () => {
   const classes = useStyles()
 
   return (
-    <div className={classes.root}>
-      <AppBar position="sticky">
-        <Toolbar>
-          <Typography variant="h5" component="h1" align="center" className={classes.title}>
-            Setpoint Calculator
-          </Typography>
-          <IconButton aria-label="display more actions" edge="end" color="inherit">
-            <MoreIcon />
-          </IconButton>
-        </Toolbar>
-      </AppBar>
-    </div>
+    <AppBar position="sticky" className={classes.root}>
+      <Toolbar>
+        <Typography variant="h5" component="h1" align="center" className={classes.title}>
+          Setpoint Calculator
+        </Typography>
+        <IconButton aria-label="display more actions" edge="end" color="inherit">
+          <MoreIcon />
+        </IconButton>
+      </Toolbar>
+    </AppBar>
   )
 }
 
