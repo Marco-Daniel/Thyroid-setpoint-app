@@ -23,7 +23,7 @@ const useStyles = makeStyles({
   },
 })
 
-const DisplayCard = ({ ft4, tsh, onClick }) => {
+const DisplayInput = ({ ft4, tsh, onClick }) => {
   const classes = useStyles()
 
   return (
@@ -53,4 +53,4 @@ const DisplayCard = ({ ft4, tsh, onClick }) => {
   )
 }
 
-export default DisplayCard
+export default DisplayInput

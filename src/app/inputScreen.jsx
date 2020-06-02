@@ -1,5 +1,5 @@
 import React from "react"
-import DisplayCard from "./displayCard"
+import DisplayInput from "./displayInput"
 import Grid from "@material-ui/core/Grid"
 import { makeStyles } from "@material-ui/core/styles"
 import Typography from "@material-ui/core/Typography"
@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-const DisplayValues = ({ values, dispatch }) => {
+const InputScreen = ({ values, dispatch }) => {
   const classes = useStyles()
   if (values.length === 0)
     return (
@@ -30,11 +30,11 @@ const DisplayValues = ({ values, dispatch }) => {
     <Grid container direction="column" justify="center" align="center" className={classes.root}>
       {values.map(value => (
         <Grid item xs={12} key={value.ft4 + value.tsh} className={classes.gridItem}>
-          <DisplayCard key={value.ft4 - value.tsh} ft4={value.ft4} tsh={value.tsh} onClick={() => dispatch({ type: "REMOVE", payload: value })} />
+          <DisplayInput key={value.ft4 - value.tsh} ft4={value.ft4} tsh={value.tsh} onClick={() => dispatch({ type: "REMOVE", payload: value })} />
         </Grid>
       ))}
     </Grid>
   )
 }
 
-export default DisplayValues
+export default InputScreen
