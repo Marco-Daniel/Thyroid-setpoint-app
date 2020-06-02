@@ -1,7 +1,10 @@
 import React, { useReducer } from "react"
 import Header from "./header"
 import Footer from "./footer"
-import DisplayValues from "./DisplayValues"
+import ScreenController from "./screenController"
+import { sort2DArray } from "../math/array"
+import { calcTshSetpoint, calcFt4Setpoint } from "../math/thyroid"
+import ExponentialRegression from "ml-regression-exponential"
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -67,13 +70,13 @@ const reducer = (state, action) => {
 }
 
 const SetpointApp = () => {
-  const [state, dispatch] = useReducer(reducer, { values: [] })
+  const [state, dispatch] = useReducer(reducer, { values: [], setpoint: {}, screen: "user-input" })
 
   return (
     <>
       <Header />
-      <DisplayValues values={state.values} dispatch={dispatch} />
-      <Footer dispatch={dispatch} />
+      <ScreenController state={state} dispatch={dispatch} />
+      <Footer dispatch={dispatch} disableSetpointButton={state.values.length < 2} />
     </>
   )
 }
