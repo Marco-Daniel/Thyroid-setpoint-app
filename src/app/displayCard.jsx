@@ -14,7 +14,7 @@ import Paper from "@material-ui/core/Paper"
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 275,
+    maxWidth: 250,
     display: "flex",
   },
   content: {
@@ -34,18 +34,18 @@ const DisplayCard = ({ ft4, tsh, onClick }) => {
             <TableBody>
               <TableRow>
                 <TableCell>FT4:</TableCell>
-                <TableCell>{`${ft4}`}</TableCell>
+                <TableCell align="right">{Number(ft4).toFixed(2)}</TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>TSH:</TableCell>
-                <TableCell>{`${tsh}`}</TableCell>
+                <TableCell align="right">{Number(tsh).toFixed(2)}</TableCell>
               </TableRow>
             </TableBody>
           </Table>
         </TableContainer>
       </CardContent>
       <CardActions>
-        <IconButton onClick={onClick}>
+        <IconButton onClick={onClick} color="secondary">
           <DeleteIcon />
         </IconButton>
       </CardActions>
