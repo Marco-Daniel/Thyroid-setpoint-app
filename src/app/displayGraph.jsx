@@ -15,9 +15,8 @@ const DisplayGraph = ({ state }) => {
   const canvasRef = useRef()
   const [minFT4, setMinFT4] = useState(Math.min(...state.values.map(o => o.ft4), 1000) * 0.9)
   const [maxFT4, setMaxFT4] = useState(Math.max(...state.values.map(o => o.ft4), 0) * 1.05)
+  const [minTSH, setMinTSH] = useState(0)
   const [maxTSH, setMaxTSH] = useState(Math.max(...state.values.map(o => o.tsh), 0) * 1.1)
-
-  console.log(state)
 
   useEffect(() => {
     const chart = new Chart(
@@ -41,7 +40,7 @@ const DisplayGraph = ({ state }) => {
             yAxes: [
               {
                 ticks: {
-                  min: 0,
+                  min: minTSH,
                   max: maxTSH,
                 },
                 scaleLabel: {
