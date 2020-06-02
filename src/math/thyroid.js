@@ -25,7 +25,7 @@ export const slope = (tsh, ft4) => (1 / (ft4[0] - ft4[1])) * Math.log(tsh[1] / t
  * @param {number} slope - calculated by slope function.
  * @param {number} multiplier - calculated by multiplier function.
  */
-export const ft4Setpoint = (slope, multiplier) => Math.log(slope * multiplier * Math.sqrt(2)) / slope
+export const calcFt4Setpoint = (slope, multiplier) => Math.log(-1 * slope * multiplier * Math.sqrt(2)) / slope
 
 /**
  * Calculate the tsh setpoint.
@@ -33,7 +33,7 @@ export const ft4Setpoint = (slope, multiplier) => Math.log(slope * multiplier * 
  *
  * @param {number} slope - calculated by slope function.
  */
-export const tshSetpoint = slope => 1 / (slope * Math.sqrt(2))
+export const calcTshSetpoint = slope => 1 / (-1 * slope * Math.sqrt(2))
 
 /**
  * Convert a ft4 value to its corresponding tsh value based on previous calculations.
