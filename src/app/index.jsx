@@ -6,10 +6,96 @@ import { sort2DArray } from "../math/array"
 import { calcTshSetpoint, calcFt4Setpoint } from "../math/thyroid"
 import ExponentialRegression from "ml-regression-exponential"
 
+const example = [
+  {
+    ft4: 13,
+    tsh: 2.56,
+  },
+  {
+    ft4: 12,
+    tsh: 40.82,
+  },
+  {
+    ft4: 11.8,
+    tsh: 46.43,
+  },
+  {
+    ft4: 15.5,
+    tsh: 10.52,
+  },
+  {
+    ft4: 15.6,
+    tsh: 5.59,
+  },
+  {
+    ft4: 16,
+    tsh: 6.27,
+  },
+  {
+    ft4: 18,
+    tsh: 2.33,
+  },
+  {
+    ft4: 16.8,
+    tsh: 1.29,
+  },
+  {
+    ft4: 17.4,
+    tsh: 2.55,
+  },
+  {
+    ft4: 18.5,
+    tsh: 1.49,
+  },
+  {
+    ft4: 16.6,
+    tsh: 2.42,
+  },
+  {
+    ft4: 17,
+    tsh: 1.96,
+  },
+  {
+    ft4: 17.4,
+    tsh: 1.79,
+  },
+  {
+    ft4: 22.6,
+    tsh: 0.14,
+  },
+  {
+    ft4: 17.8,
+    tsh: 0.36,
+  },
+  {
+    ft4: 14.4,
+    tsh: 2.3,
+  },
+  {
+    ft4: 15.5,
+    tsh: 2.93,
+  },
+  {
+    ft4: 14.5,
+    tsh: 3.39,
+  },
+  {
+    ft4: 17.7,
+    tsh: 1.63,
+  },
+  {
+    ft4: 17.9,
+    tsh: 3.33,
+  },
+]
+
 const reducer = (state, action) => {
   switch (action.type) {
     case "ADD":
       return { ...state, values: [...state.values, action.payload] }
+
+    case "SWITCH_SCREEN":
+      return { ...state, screen: action.payload }
 
     case "REMOVE":
       const newValues = [...state.values]
@@ -24,6 +110,12 @@ const reducer = (state, action) => {
       }
 
       return { ...state, values: [...newValues] }
+
+    case "CREATE_EXAMPLE_DATA":
+      return { ...state, values: [...example] }
+
+    case "CLEAR_USER_INPUT":
+      return { ...state, values: [], setpoint: {} }
 
     case "CALC_SETPOINT":
       // if there is not enough data return without doing anything
@@ -60,8 +152,9 @@ const reducer = (state, action) => {
           multiplier: regression.B,
           ft4: setpointFT4,
           tsh: setpointTSH,
-          probability: r2,
+          r2,
         },
+        screen: "calculated",
       }
 
     default:
@@ -74,7 +167,7 @@ const SetpointApp = () => {
 
   return (
     <>
-      <Header />
+      <Header displayBack={state.screen === "calculated"} dispatch={dispatch} />
       <ScreenController state={state} dispatch={dispatch} />
       <Footer dispatch={dispatch} disableSetpointButton={state.values.length < 2} />
     </>
