@@ -40,6 +40,9 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.primary.contrastText,
     borderColor: theme.palette.primary.contrastText,
     borderRight: "none",
+    "&:hover": {
+      borderRight: "none",
+    },
   },
   offset: theme.mixins.toolbar,
 }))
