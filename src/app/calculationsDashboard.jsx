@@ -26,11 +26,14 @@ const errorInCalculations = setpoint => {
 }
 
 const useStyles = makeStyles(theme => ({
+  wrapper: {
+    padding: theme.spacing(2),
+  },
   noValues: {
     padding: theme.spacing(2),
   },
   graph: {
-    margin: `${theme.spacing(0.5)}px ${theme.spacing(2)}px ${theme.spacing(2)}px`,
+    // margin: `${theme.spacing(0.5)}px ${theme.spacing(2)}px ${theme.spacing(2)}px`,
     paddingTop: theme.spacing(3),
     paddingBottom: theme.spacing(1),
     paddingRight: theme.spacing(2),
@@ -56,17 +59,19 @@ const CalculationsDashboard = ({ state, dispatch }) => {
   }
 
   return (
-    <Grid container justify="center">
-      <Grid item xs={12}>
-        <SetpointTable setpoint={state.setpoint} />
+    <div className={classes.wrapper}>
+      <Grid container justify="center" align="center" spacing={2}>
+        <Grid item xs={12} sm={5} md={3}>
+          <SetpointTable setpoint={state.setpoint} />
+        </Grid>
+        <Grid item xs={12} sm={7} md={3}>
+          <GraphController dispatch={dispatch} graphSettings={state.graph} />
+        </Grid>
+        <Grid item xs={12} component={Paper} className={classes.graph}>
+          <DisplayGraph state={state} />
+        </Grid>
       </Grid>
-      <Grid item xs={12}>
-        <GraphController dispatch={dispatch} graphSettings={state.graph} />
-      </Grid>
-      <Grid item xs={12} component={Paper} className={classes.graph}>
-        <DisplayGraph state={state} />
-      </Grid>
-    </Grid>
+    </div>
   )
 }
 

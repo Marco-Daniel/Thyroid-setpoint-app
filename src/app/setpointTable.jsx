@@ -10,11 +10,11 @@ import Typography from "@material-ui/core/Typography"
 
 const useStyles = makeStyles(theme => ({
   table: {
-    margin: `${theme.spacing(2)}px auto`,
     maxWidth: 235,
   },
   header: {
     padding: theme.spacing(1),
+    marginBottom: theme.spacing(1.5),
     textAlign: "center",
   },
   lastRow: {
