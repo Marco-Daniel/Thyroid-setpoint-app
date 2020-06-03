@@ -1,6 +1,6 @@
 import React from "react"
 import InputScreen from "./inputScreen"
-import DisplaySetpoint from "./displaySetpoint"
+import CalculationsDashboard from "./calculationsDashboard"
 
 const ScreenController = ({ state, dispatch }) => {
   switch (state.screen) {
@@ -8,7 +8,7 @@ const ScreenController = ({ state, dispatch }) => {
       return <InputScreen values={state.values} dispatch={dispatch} />
 
     case "calculated":
-      return <DisplaySetpoint state={state} dispatch={dispatch} />
+      return <CalculationsDashboard state={state} dispatch={dispatch} />
 
     default:
       return <InputScreen values={state.values} dispatch={dispatch} />
