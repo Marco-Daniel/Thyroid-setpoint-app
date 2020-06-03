@@ -182,7 +182,13 @@ const reducer = (state, action) => {
       return { ...state, values: [...example[action.payload]] }
 
     case "CLEAR_USER_INPUT":
-      return { ...state, values: [], setpoint: {} }
+      return { ...state, values: [], setpoint: {}, graph: {} }
+
+    case "UPDATE_AXIS":
+      return { ...state, graph: { ...state.graph, ...action.payload } }
+
+    case "RESET_AXIS":
+      return { ...state, graph: { ...state.graph.default, default: { ...state.graph.default } } }
 
     case "CALC_SETPOINT":
       // if there is not enough data return without doing anything
@@ -233,6 +239,13 @@ const reducer = (state, action) => {
       const setpointTSH = calcTshSetpoint(slope)
       const setpointFT4 = calcFt4Setpoint(slope, multiplier)
 
+      const axisPoints = {
+        minFT4: round(Math.min(...state.values.map(o => o.ft4), 1000) * 0.9),
+        maxFT4: round(Math.max(...state.values.map(o => o.ft4), 0) * 1.05),
+        minTSH: 0,
+        maxTSH: round(Math.max(...state.values.map(o => o.tsh), 0) * 1.1),
+      }
+
       return {
         ...state,
         setpoint: {
@@ -244,10 +257,10 @@ const reducer = (state, action) => {
         },
         screen: "calculated",
         graph: {
-          minFT4: round(Math.min(...state.values.map(o => o.ft4), 1000) * 0.9),
-          maxFT4: round(Math.max(...state.values.map(o => o.ft4), 0) * 1.05),
-          minTSH: 0,
-          maxTSH: round(Math.max(...state.values.map(o => o.tsh), 0) * 1.1),
+          ...axisPoints,
+          default: {
+            ...axisPoints,
+          },
         },
       }
 
