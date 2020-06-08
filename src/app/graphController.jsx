@@ -52,6 +52,9 @@ const useStyles = makeStyles(theme => ({
     width: "100%",
     textAlign: "center",
   },
+  reset: {
+    color: theme.palette.text.primary,
+  },
 }))
 
 const GraphController = ({ dispatch, graphSettings }) => {
@@ -90,13 +93,53 @@ const GraphController = ({ dispatch, graphSettings }) => {
       <form onSubmit={handleSubmit} className={classes.form}>
         <div>
           <div className={classes.textGroup}>
-            <TextField margin="dense" id="minTsh" label="min TSH" type="text" variant="outlined" value={minTSH} onChange={e => setMinTSH(e.target.value)} className={classes.inputs} />
-            <TextField margin="dense" id="maxTsh" label="max TSH" type="text" variant="outlined" value={maxTSH} onChange={e => setMaxTSH(e.target.value)} className={classes.inputs} />
+            <TextField
+              color="secondary"
+              margin="dense"
+              id="minTsh"
+              label="min TSH"
+              type="text"
+              variant="outlined"
+              value={minTSH}
+              onChange={e => setMinTSH(e.target.value)}
+              className={classes.inputs}
+            />
+            <TextField
+              color="secondary"
+              margin="dense"
+              id="maxTsh"
+              label="max TSH"
+              type="text"
+              variant="outlined"
+              value={maxTSH}
+              onChange={e => setMaxTSH(e.target.value)}
+              className={classes.inputs}
+            />
           </div>
           <Divider />
           <div className={classes.textGroup}>
-            <TextField margin="dense" id="minFt4" label="min FT4" type="text" variant="outlined" value={minFT4} onChange={e => setMinFT4(e.target.value)} className={classes.inputs} />
-            <TextField margin="dense" id="maxTsh" label="max TSH" type="text" variant="outlined" value={maxFT4} onChange={e => setMaxFT4(e.target.value)} className={classes.inputs} />
+            <TextField
+              color="secondary"
+              margin="dense"
+              id="minFt4"
+              label="min FT4"
+              type="text"
+              variant="outlined"
+              value={minFT4}
+              onChange={e => setMinFT4(e.target.value)}
+              className={classes.inputs}
+            />
+            <TextField
+              color="secondary"
+              margin="dense"
+              id="maxFt4"
+              label="max FT4"
+              type="text"
+              variant="outlined"
+              value={maxFT4}
+              onChange={e => setMaxFT4(e.target.value)}
+              className={classes.inputs}
+            />
           </div>
         </div>
 
@@ -104,7 +147,7 @@ const GraphController = ({ dispatch, graphSettings }) => {
           <Button type="submit" disabled={!validated({ minFT4, maxFT4, minTSH, maxTSH })} color="secondary" variant="contained">
             Wijzig
           </Button>
-          <Button color="secondary" variant="outlined" onClick={handleReset}>
+          <Button color="secondary" variant="outlined" onClick={handleReset} className={classes.reset}>
             Reset
           </Button>
         </ButtonGroup>

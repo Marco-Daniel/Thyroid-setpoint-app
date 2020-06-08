@@ -29,7 +29,7 @@ const InputScreen = ({ values, dispatch }) => {
     )
 
   return (
-    <Grid container justify="center" className={classes.root}>
+    <Grid container justify="center" align="center" className={classes.root}>
       {values.map(value => (
         <Grid item xs={12} sm={4} md={3} lg={2} key={value.ft4 + value.tsh} className={classes.gridItem}>
           <DisplayInput key={value.ft4 - value.tsh} ft4={value.ft4} tsh={value.tsh} onClick={() => dispatch({ type: "REMOVE", payload: value })} />

@@ -12,7 +12,7 @@ import TableCell from "@material-ui/core/TableCell"
 import TableRow from "@material-ui/core/TableRow"
 import Paper from "@material-ui/core/Paper"
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   root: {
     maxWidth: 250,
     display: "flex",
@@ -21,7 +21,10 @@ const useStyles = makeStyles({
     width: "100%",
     padding: 0,
   },
-})
+  button: {
+    color: theme.palette.secondary.dark,
+  },
+}))
 
 const DisplayInput = ({ ft4, tsh, onClick }) => {
   const classes = useStyles()
@@ -45,7 +48,7 @@ const DisplayInput = ({ ft4, tsh, onClick }) => {
         </TableContainer>
       </CardContent>
       <CardActions>
-        <IconButton onClick={onClick} color="secondary">
+        <IconButton onClick={onClick} className={classes.button}>
           <DeleteIcon />
         </IconButton>
       </CardActions>
