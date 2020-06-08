@@ -10,6 +10,9 @@ const secondaryColor = "#2DA3D3"
 const ThemeWrapper = ({ children }) => {
   const defaultTheme = createMuiTheme()
   const theme = createMuiTheme({
+    typography: {
+      fontFamily: ["Comfortaa", "Roboto", "sans-serif", "Ariel", "Verdana"].join(","),
+    },
     palette: {
       primary: {
         main: primaryColor,
