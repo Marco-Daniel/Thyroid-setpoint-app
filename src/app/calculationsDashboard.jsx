@@ -48,7 +48,7 @@ const CalculationsDashboard = ({ state, dispatch }) => {
   useEffect(() => {
     if (state.values.length === 0) dispatch({ type: "SWITCH_SCREEN", payload: "user-input" })
     if (state.values.length > 1) dispatch({ type: "CALC_SETPOINT" })
-  }, [state.values])
+  }, [state.values]) // eslint-disable-line react-hooks/exhaustive-deps
 
   if (errorInCalculations(state.setpoint)) {
     return (
