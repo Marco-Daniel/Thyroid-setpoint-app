@@ -42,9 +42,8 @@ const useStyles = makeStyles(theme => ({
 
 function HideOnScroll({ children }) {
   // check if window exists so gatsby build doesn't fail
-  if (typeof window === `undefined`) return <>{children}</>
-
   const trigger = useScrollTrigger({ threshold: 75 })
+  // if (typeof window === `undefined`) return <>{children}</>
 
   return (
     <Slide appear={false} direction="down" in={!trigger}>
