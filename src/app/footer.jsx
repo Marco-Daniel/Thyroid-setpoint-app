@@ -36,7 +36,7 @@ const Footer = ({ dispatch, disableSetpointButton, hide }) => {
 
   return (
     <div className={classes.root}>
-      <Slide direction="up" in={!hide} mountOnEnter unmountOnExit>
+      <Slide appear={false} direction="up" in={!hide}>
         <AppBar position="fixed" className={classes.appBar}>
           <Toolbar>
             <ButtonGroup disableElevation size="small" className={classes.buttons} color="secondary">
