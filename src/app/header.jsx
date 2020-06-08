@@ -12,6 +12,8 @@ import MenuItem from "@material-ui/core/MenuItem"
 import Disclaimer from "./disclaimer"
 import Help from "./help"
 import Divider from "@material-ui/core/Divider"
+import useScrollTrigger from "@material-ui/core/useScrollTrigger"
+import Slide from "@material-ui/core/Slide"
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -37,6 +39,19 @@ const useStyles = makeStyles(theme => ({
     justifyContent: "center",
   },
 }))
+
+function HideOnScroll({ children }) {
+  // check if window exists so gatsby build doesn't fail
+  if (typeof window === `undefined`) return <>{children}</>
+
+  const trigger = useScrollTrigger({ threshold: 75 })
+
+  return (
+    <Slide appear={false} direction="down" in={!trigger}>
+      {children}
+    </Slide>
+  )
+}
 
 const Header = ({ displayBack, dispatch }) => {
   const {
@@ -78,21 +93,23 @@ const Header = ({ displayBack, dispatch }) => {
 
   return (
     <>
-      <AppBar position="sticky" className={classes.root}>
-        <Toolbar>
-          {displayBack && (
-            <IconButton aria-label="display more actions" edge="start" color="inherit" onClick={goToDisplayValues}>
-              <ArrowBackIcon />
+      <HideOnScroll>
+        <AppBar position="sticky" className={classes.root}>
+          <Toolbar>
+            {displayBack && (
+              <IconButton aria-label="display more actions" edge="start" color="inherit" onClick={goToDisplayValues}>
+                <ArrowBackIcon />
+              </IconButton>
+            )}
+            <Typography variant="h5" component="h1" align="center" className={classes.title}>
+              Setpoint Calculator
+            </Typography>
+            <IconButton aria-label="display more-actions" aria-haspopup="true" onClick={handleClick} color="inherit" className={classes.alignRight}>
+              <MoreIcon />
             </IconButton>
-          )}
-          <Typography variant="h5" component="h1" align="center" className={classes.title}>
-            Setpoint Calculator
-          </Typography>
-          <IconButton aria-label="display more-actions" aria-haspopup="true" onClick={handleClick} color="inherit" className={classes.alignRight}>
-            <MoreIcon />
-          </IconButton>
-        </Toolbar>
-      </AppBar>
+          </Toolbar>
+        </AppBar>
+      </HideOnScroll>
 
       <Menu id="more-actions" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
         <MenuItem onClick={clearInput}>Start opnieuw</MenuItem>
