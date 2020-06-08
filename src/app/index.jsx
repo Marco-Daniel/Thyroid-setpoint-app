@@ -154,7 +154,13 @@ const example = [
   ],
 ]
 
-const round = num => Math.round((num + Number.EPSILON) * 10) / 10
+const round = (num, multiplier = 10) => Math.round((num + Number.EPSILON) * multiplier) / multiplier
+
+const getMaxFT4 = (calc, setpoint) => {
+  if (calc > setpoint) return calc
+
+  return round(setpoint * 1.05)
+}
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -226,22 +232,27 @@ const reducer = (state, action) => {
       let multiplier = 0
       let rSquared = 0
 
+      console.log(`ML-> curve: ${round(mlCurve, 100000)} r2: ${round(r2, 100000)}`)
+      console.log(`Reg -> curve: ${round(regCurve, 100000)} r2: ${round(reg.r2, 100000)}`)
+
       if (regCurve > mlCurve) {
         multiplier = reg.equation[0]
         slope = reg.equation[1]
         rSquared = reg.r2
+        console.log("Reg library")
       } else {
         multiplier = mlReg.B
         slope = mlReg.A
         rSquared = r2
+        console.log("ML library")
       }
 
-      const setpointTSH = calcTshSetpoint(slope)
-      const setpointFT4 = calcFt4Setpoint(slope, multiplier)
+      const setpointTSH = round(calcTshSetpoint(slope), 100)
+      const setpointFT4 = round(calcFt4Setpoint(slope, multiplier), 100)
 
       const axisPoints = {
         minFT4: round(Math.min(...state.values.map(o => o.ft4), 1000) * 0.9),
-        maxFT4: round(Math.max(...state.values.map(o => o.ft4), 0) * 1.05),
+        maxFT4: getMaxFT4(round(Math.max(...state.values.map(o => o.ft4), 0) * 1.05), setpointFT4),
         minTSH: 0,
         maxTSH: round(Math.max(...state.values.map(o => o.tsh), 0) * 1.1),
       }
