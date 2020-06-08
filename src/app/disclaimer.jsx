@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { useStaticQuery, graphql } from "gatsby"
 import DialogContent from "@material-ui/core/DialogContent"
 import DialogContentText from "@material-ui/core/DialogContentText"
 import Dialog from "@material-ui/core/Dialog"
@@ -24,6 +25,19 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const Disclaimer = ({ onClick }) => {
+  const {
+    site: {
+      siteMetadata: { version },
+    },
+  } = useStaticQuery(graphql`
+    query disclaimer {
+      site {
+        siteMetadata {
+          version
+        }
+      }
+    }
+  `)
   const [open, setOpen] = useState(false)
   const classes = useStyles()
 
@@ -45,8 +59,10 @@ const Disclaimer = ({ onClick }) => {
         <DialogContent>
           <DialogContentText component="div">
             <Typography gutterBottom color="textPrimary">
-              Door deze app te gebruiken stemt u in met deze disclaimer.{" "}
+              Door deze app te gebruiken stemt u in met deze disclaimer.
             </Typography>
+            <Typography variant="caption" color="secondary">{`app-versie: ${version}`}</Typography>
+            <Typography gutterBottom color="textPrimary"></Typography>
 
             <Divider className={classes.divider} />
 
@@ -54,10 +70,10 @@ const Disclaimer = ({ onClick }) => {
               Uitsluiting van aansprakelijkheid{" "}
             </Typography>
             <Typography variant="body2" paragraph>
-              Alle informatie in deze app is bedoeld voor persoonlijk gebruik. Aan de informatie kan men geen rechten ontlenen. Wijzigingen en
-              typefouten zijn voorbehouden. Wij spannen ons in om de informatie op deze webpagina zo volledig en nauwkeurig mogelijk te laten zijn.
-              Wij aanvaarden geen enkele verantwoordelijkheid voor schade, op welke manier dan ook ontstaan door gebruik, onvolledigheid of
-              onjuistheid van de aangeboden informatie en calculator op deze website.
+              Alle informatie en functionaliteit in deze app is bedoeld voor persoonlijk gebruik. Deze app is nog volop in ontwikkeling, aan de
+              informatie/berekening kan men geen rechten ontlenen. Wijzigingen en typefouten zijn voorbehouden. Wij spannen ons in om de informatie op
+              deze webpagina zo volledig en nauwkeurig mogelijk te laten zijn. Wij aanvaarden geen enkele verantwoordelijkheid voor schade, op welke
+              manier dan ook ontstaan door gebruik, onvolledigheid of onjuistheid van de aangeboden informatie en calculator op deze website.
             </Typography>
 
             <Typography variant="h6" gutterBottom>

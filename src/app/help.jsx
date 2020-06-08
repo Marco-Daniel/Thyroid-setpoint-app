@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { useStaticQuery, graphql } from "gatsby"
 import DialogContent from "@material-ui/core/DialogContent"
 import DialogContentText from "@material-ui/core/DialogContentText"
 import Dialog from "@material-ui/core/Dialog"
@@ -19,6 +20,19 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const Help = ({ onClick }) => {
+  const {
+    site: {
+      siteMetadata: { version },
+    },
+  } = useStaticQuery(graphql`
+    query help {
+      site {
+        siteMetadata {
+          version
+        }
+      }
+    }
+  `)
   const [open, setOpen] = useState(false)
   const classes = useStyles()
 
@@ -58,6 +72,7 @@ const Help = ({ onClick }) => {
             <Typography variant="body2" paragraph>
               U kunt uw feedback mailen naar <a href="mailto:marco@mddd.nl">marco@mddd.nl</a>. Ik zie deze graag tegemoet.
             </Typography>
+            <Typography variant="caption" paragraph color="secondary">{`app-versie: ${version}`}</Typography>
           </DialogContentText>
         </DialogContent>
         <DialogActions>

@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { useStaticQuery, graphql } from "gatsby"
 import { makeStyles } from "@material-ui/core/styles"
 import AppBar from "@material-ui/core/AppBar"
 import Toolbar from "@material-ui/core/Toolbar"
@@ -30,9 +31,28 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
   },
+  version: {
+    color: theme.palette.secondary.main,
+    opacity: "1 !important",
+    justifyContent: "center",
+  },
 }))
 
 const Header = ({ displayBack, dispatch }) => {
+  const {
+    site: {
+      siteMetadata: { version },
+    },
+  } = useStaticQuery(graphql`
+    query header {
+      site {
+        siteMetadata {
+          version
+        }
+      }
+    }
+  `)
+
   const classes = useStyles()
   const [anchorEl, setAnchorEl] = useState(null)
 
@@ -87,6 +107,9 @@ const Header = ({ displayBack, dispatch }) => {
         <MenuItem onClick={handleClose} component="a" href="mailto:marco@mddd.nl" rel="noreferrer noopener" target="_blank">
           Geef feedback
         </MenuItem>
+        <MenuItem onClick={handleClose} component="a" href="https://mddd.nl" rel="noreferrer noopener" target="_blank">
+          Ontwikkelaar
+        </MenuItem>
         <MenuItem
           onClick={handleClose}
           component="a"
@@ -96,6 +119,8 @@ const Header = ({ displayBack, dispatch }) => {
         >
           Wetenschappelijke artikel
         </MenuItem>
+        <Divider className={classes.divider} />
+        <MenuItem dense disabled="false" className={classes.version}>{`Versie: ${version}`}</MenuItem>
       </Menu>
     </>
   )
