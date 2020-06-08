@@ -8,6 +8,9 @@ import MoreIcon from "@material-ui/icons/MoreVert"
 import ArrowBackIcon from "@material-ui/icons/ArrowBack"
 import Menu from "@material-ui/core/Menu"
 import MenuItem from "@material-ui/core/MenuItem"
+import Disclaimer from "./disclaimer"
+import Help from "./help"
+import Divider from "@material-ui/core/Divider"
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -22,6 +25,10 @@ const useStyles = makeStyles(theme => ({
   alignRight: {
     marginRight: 0,
     marginLeft: "auto",
+  },
+  divider: {
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
   },
 }))
 
@@ -68,11 +75,27 @@ const Header = ({ displayBack, dispatch }) => {
       </AppBar>
 
       <Menu id="more-actions" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
+        <MenuItem onClick={clearInput}>Start opnieuw</MenuItem>
+        <Divider className={classes.divider} />
         <MenuItem onClick={() => addExampleData(0)}>Voorbeeld 1</MenuItem>
         <MenuItem onClick={() => addExampleData(1)}>Voorbeeld 2</MenuItem>
         <MenuItem onClick={() => addExampleData(2)}>Voorbeeld 3</MenuItem>
         <MenuItem onClick={() => addExampleData(3)}>Voorbeeld 4</MenuItem>
-        <MenuItem onClick={clearInput}>Verwijder alle data</MenuItem>
+        <Divider className={classes.divider} />
+        <Help onClick={handleClose} />
+        <Disclaimer onClick={handleClose} />
+        <MenuItem onClick={handleClose} component="a" href="mailto:marco@mddd.nl" rel="noreferrer noopener" target="_blank">
+          Geef feedback
+        </MenuItem>
+        <MenuItem
+          onClick={handleClose}
+          component="a"
+          href="https://tbiomed.biomedcentral.com/articles/10.1186/1742-4682-11-35"
+          rel="noreferrer noopener"
+          target="_blank"
+        >
+          Wetenschappelijke artikel
+        </MenuItem>
       </Menu>
     </>
   )
