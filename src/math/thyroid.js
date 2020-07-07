@@ -9,7 +9,7 @@ import { fraction } from "mathjs"
  * @param {number} slope - calculated by slope function.
  *
  */
-export const multiplier = (tsh, ft4, slope) => tsh * Math.exp(slope * ft4)
+export const multiplier = (tsh, ft4, slope) => tsh * Math.exp(-slope * ft4)
 
 /**
  * Used to calculate the slope for other calculations.
@@ -49,5 +49,8 @@ export const ft4ToTSH = (slope, multiplier, ft4) => multiplier * Math.exp(slope 
 
 export const calculateCurvature = (slope, multiplier, ft4 = 18) => {
   const posSlope = -1 * slope
-  return (posSlope ** 2 * multiplier * Math.exp(-(posSlope * ft4))) / (1 + (posSlope ** 2 * multiplier ** 2 * Math.exp(-2 * posSlope * multiplier)) ** fraction(3, 2))
+  return (
+    (posSlope ** 2 * multiplier * Math.exp(-(posSlope * ft4))) /
+    (1 + (posSlope ** 2 * multiplier ** 2 * Math.exp(-2 * posSlope * multiplier)) ** fraction(3, 2))
+  )
 }
