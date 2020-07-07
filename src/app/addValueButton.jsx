@@ -83,11 +83,11 @@ const AddValueButton = ({ dispatch }) => {
               id="ft4"
               label="FT4 labwaarde"
               type="text"
-              pattern="[0-9]*"
               fullWidth
               variant="outlined"
               value={ft4}
               onChange={e => setFt4(e.target.value)}
+              inputProps={{ pattern: "[0-9]*" }}
             />
             <TextField
               color="secondary"
@@ -95,11 +95,11 @@ const AddValueButton = ({ dispatch }) => {
               id="tsh"
               label="TSH labwaarde"
               type="text"
-              pattern="[0-9]*"
               fullWidth
               variant="outlined"
               value={tsh}
               onChange={e => setTsh(e.target.value)}
+              inputProps={{ pattern: "[0-9]*" }}
             />
           </DialogContent>
           <DialogActions>
