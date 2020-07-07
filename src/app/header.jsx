@@ -134,7 +134,7 @@ const Header = ({ displayBack, dispatch }) => {
           Wetenschappelijke artikel
         </MenuItem>
         <Divider className={classes.divider} />
-        <MenuItem dense disabled="false" className={classes.version}>{`Versie: ${version}`}</MenuItem>
+        <MenuItem dense disabled className={classes.version}>{`Versie: ${version}`}</MenuItem>
       </Menu>
     </>
   )
