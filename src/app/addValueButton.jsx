@@ -82,8 +82,8 @@ const AddValueButton = ({ dispatch }) => {
               margin="dense"
               id="ft4"
               label="FT4 labwaarde"
-              type="number"
-              inputmode="decimal"
+              type="text"
+              pattern="[0-9]*"
               fullWidth
               variant="outlined"
               value={ft4}
@@ -94,8 +94,8 @@ const AddValueButton = ({ dispatch }) => {
               margin="dense"
               id="tsh"
               label="TSH labwaarde"
-              type="number"
-              inputmode="decimal"
+              type="text"
+              pattern="[0-9]*"
               fullWidth
               variant="outlined"
               value={tsh}
