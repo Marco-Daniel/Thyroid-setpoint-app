@@ -163,6 +163,8 @@ const getMaxFT4 = (calc, setpoint) => {
 }
 
 const reducer = (state, action) => {
+  let newValues = []
+
   switch (action.type) {
     case "ADD":
       return { ...state, values: [...state.values, action.payload] }
@@ -171,16 +173,24 @@ const reducer = (state, action) => {
       return { ...state, screen: action.payload }
 
     case "REMOVE":
-      const newValues = [...state.values]
+      newValues = [...state.values]
       // find the index of the payload
-      const index = newValues.indexOf(action.payload)
+      const index = newValues.findIndex(item => item.ft4 === action.payload.ft4 && item.tsh === action.payload.tsh)
       // remove the item or throw error if index not found
       if (index > -1) {
         newValues.splice(index, 1)
       } else {
-        console.log(action.payload)
+        console.log(action.payload, index)
         throw new Error("Index of object not found")
       }
+
+      return { ...state, values: [...newValues] }
+
+    case "REMOVE_BY_INDEX":
+      if (action.payload < 0) return { ...state }
+
+      newValues = [...state.values]
+      newValues.splice(action.payload, 1)
 
       return { ...state, values: [...newValues] }
 
