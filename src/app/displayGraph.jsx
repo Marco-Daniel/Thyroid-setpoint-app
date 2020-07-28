@@ -16,7 +16,7 @@ const DisplayGraph = ({ state, dispatch }) => {
 
   useEffect(() => {
     const ref = canvasRef.current
-    const chart = new Chart(canvasRef.current.getContext("2d"), {
+    const chart = new Chart(ref.getContext("2d"), {
       type: "scatter",
       options: {
         scales: {
@@ -67,7 +67,7 @@ const DisplayGraph = ({ state, dispatch }) => {
             fill: false,
           },
           {
-            label: "Berekening",
+            label: "Trendlijn",
             data: createSmoothLine(state.setpoint.slope, state.setpoint.multiplier),
             pointBackgroundColor: "rgba(1,1,250,1)",
             borderColor: "rgba(0,0,250, 0.6)",
