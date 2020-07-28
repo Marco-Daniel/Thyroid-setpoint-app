@@ -15,6 +15,8 @@ import Divider from "@material-ui/core/Divider"
 import useScrollTrigger from "@material-ui/core/useScrollTrigger"
 import Slide from "@material-ui/core/Slide"
 
+import AddValueButton from "./addValueButton"
+
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
@@ -110,6 +112,7 @@ const Header = ({ displayBack, dispatch }) => {
 
       <Menu id="more-actions" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
         <MenuItem onClick={clearInput}>Start opnieuw</MenuItem>
+        <AddValueButton dispatch={dispatch} menuItem={handleClose} />
         <Divider className={classes.divider} />
         <MenuItem onClick={() => addExampleData(0)}>Voorbeeld 1</MenuItem>
         <MenuItem onClick={() => addExampleData(1)}>Voorbeeld 2</MenuItem>
