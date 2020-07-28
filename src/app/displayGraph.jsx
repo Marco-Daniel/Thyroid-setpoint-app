@@ -11,10 +11,11 @@ const createSmoothLine = (slope, multiplier) => {
   }, [])
 }
 
-const DisplayGraph = ({ state }) => {
+const DisplayGraph = ({ state, dispatch }) => {
   const canvasRef = useRef()
 
   useEffect(() => {
+    const ref = canvasRef.current
     const chart = new Chart(canvasRef.current.getContext("2d"), {
       type: "scatter",
       options: {
@@ -79,9 +80,29 @@ const DisplayGraph = ({ state }) => {
       },
     })
 
+    const handleClick = e => {
+      const activePoint = chart.getElementAtEvent(e)
+      if (typeof activePoint[0] === "undefined") return
+
+      const itemIndex = activePoint[0]._index
+
+      chart.data.datasets.forEach(dataset => {
+        if (dataset.label === "Invoer") {
+          const item = dataset.data[itemIndex]
+          const set = { ft4: item.x, tsh: item.y }
+          dispatch({ type: "REMOVE", payload: set })
+        }
+      })
+    }
+
+    ref.addEventListener("click", handleClick)
+
     // clean-up before next render
-    return () => chart.destroy()
-  }, [state])
+    return () => {
+      ref.removeEventListener("click", handleClick)
+      chart.destroy()
+    }
+  }, [state, dispatch])
 
   return <canvas ref={canvasRef} />
 }
