@@ -32,6 +32,10 @@ const useStyles = makeStyles(theme => ({
   noValues: {
     padding: theme.spacing(2),
   },
+  helper: {
+    padding: 0,
+    paddingTop: theme.spacing(1),
+  },
   graph: {
     // margin: `${theme.spacing(0.5)}px ${theme.spacing(2)}px ${theme.spacing(2)}px`,
     paddingTop: theme.spacing(3),
@@ -67,8 +71,13 @@ const CalculationsDashboard = ({ state, dispatch }) => {
         <Grid item xs={12} sm={7} md={3}>
           <GraphController dispatch={dispatch} graphSettings={state.graph} />
         </Grid>
+        <Grid item xs={12}>
+          <Typography align="center" variant="h6" className={classes.helper}>
+            Klik op een datapunt om deze te verwijderen
+          </Typography>
+        </Grid>
         <Grid item xs={12} component={Paper} className={classes.graph}>
-          <DisplayGraph state={state} />
+          <DisplayGraph state={state} dispatch={dispatch} />
         </Grid>
       </Grid>
     </div>
