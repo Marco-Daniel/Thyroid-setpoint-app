@@ -5,6 +5,7 @@ import Dialog from "@material-ui/core/Dialog"
 import DialogActions from "@material-ui/core/DialogActions"
 import DialogContent from "@material-ui/core/DialogContent"
 import DialogContentText from "@material-ui/core/DialogContentText"
+import MenuItem from "@material-ui/core/MenuItem"
 
 const DisplayErrors = ({ errors }) => {
   const style = { color: "red" }
@@ -20,7 +21,7 @@ const DisplayErrors = ({ errors }) => {
   }
 }
 
-const AddValueButton = ({ dispatch }) => {
+const AddValueButton = ({ dispatch, menuItem }) => {
   const [open, setOpen] = useState(false)
   const [ft4, setFt4] = useState("")
   const [tsh, setTsh] = useState("")
@@ -61,17 +62,28 @@ const AddValueButton = ({ dispatch }) => {
 
   const updateInput = (input, set) => set(input.replace(",", "."))
 
+  const text = "Voeg waarde toe"
+
   return (
     <>
-      <Button
-        variant="contained"
-        onClick={() => setOpen(true)}
-        color="secondary"
-        disableElevation
-        style={{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }}
-      >
-        Voeg waarde toe
-      </Button>
+      {menuItem ? (
+        <MenuItem
+          onClick={() => {
+            setOpen(true)
+            menuItem()
+          }}
+          children={text}
+        />
+      ) : (
+        <Button
+          variant="contained"
+          onClick={() => setOpen(true)}
+          color="secondary"
+          disableElevation
+          style={{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }}
+          children={text}
+        />
+      )}
 
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-add-values">
         <form onSubmit={handleSubmit}>
