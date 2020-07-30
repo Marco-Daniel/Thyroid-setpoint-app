@@ -5,7 +5,7 @@ module.exports = {
     title: `Thyroid Setpoint Calculator`,
     description: `Gebruik deze app om uw schildklier setpoint te berekenen.`,
     author: `M.D. Leguijt, M.D. Design & Development`,
-    version: `0.7-bèta`,
+    version: `0.8-bèta`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
