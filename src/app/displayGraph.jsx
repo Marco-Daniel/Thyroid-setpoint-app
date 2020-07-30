@@ -81,16 +81,19 @@ const DisplayGraph = ({ state, dispatch }) => {
     })
 
     const handleClick = e => {
-      const activePoint = chart.getElementAtEvent(e)
-      if (typeof activePoint[0] === "undefined") return
+      // destructure last active point from array
+      const [activePoint] = chart.getElementAtEvent(e)
 
-      const itemIndex = activePoint[0]._index
+      //if there is no active point or it doesn't belong to user input exit function
+      if (typeof activePoint === "undefined" || activePoint._datasetIndex !== 1) return
 
+      const itemIndex = activePoint._index
       chart.data.datasets.forEach(dataset => {
         if (dataset.label === "Invoer") {
           const item = dataset.data[itemIndex]
-          const set = { ft4: item.x, tsh: item.y }
-          dispatch({ type: "REMOVE", payload: set })
+          if (window.confirm(`Weet u zeker dat u datapunt \r\n ft4: ${item.x} tsh: ${item.y} \r\n wilt verwijderen?`)) {
+            dispatch({ type: "REMOVE", payload: { ft4: item.x, tsh: item.y } })
+          }
         }
       })
     }
