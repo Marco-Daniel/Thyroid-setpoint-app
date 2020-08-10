@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from "react"
 import Chart from "chart.js"
-import { decreasingNumbersArray } from "../math/array"
-import { ft4ToTSH } from "../math/thyroid"
+import { decreasingNumbersArray } from "../../math/array"
+import { ft4ToTSH } from "../../math/thyroid"
 
 const createSmoothLine = (slope, multiplier) => {
   const values = decreasingNumbersArray(30, 0.5)
@@ -50,7 +50,7 @@ const DisplayGraph = ({ state, dispatch }) => {
         datasets: [
           {
             label: "Setpoint",
-            data: [{ x: state.setpoint.ft4, y: state.setpoint.tsh }],
+            data: [{ x: state.setpoint.rawSetpointFT4, y: state.setpoint.rawSetpointTSH }],
             pointBackgroundColor: "green",
             pointBorderColor: "green",
             borderColor: "green",

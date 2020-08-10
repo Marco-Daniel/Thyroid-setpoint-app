@@ -65,11 +65,13 @@ const CalculationsDashboard = ({ state, dispatch }) => {
   return (
     <div className={classes.wrapper}>
       <Grid container justify="center" align="center" spacing={2}>
-        <Grid item xs={12} sm={5} md={3}>
-          <SetpointTable setpoint={state.setpoint} />
-        </Grid>
-        <Grid item xs={12} sm={7} md={3}>
-          <GraphController dispatch={dispatch} graphSettings={state.graph} />
+        <Grid container justify="center" align="center" spacing={2} item xs={12}>
+          <Grid item xs={12} sm={5} md={3}>
+            <SetpointTable setpoint={state.setpoint} />
+          </Grid>
+          <Grid item xs={12} sm={7} md={3}>
+            <GraphController dispatch={dispatch} graphSettings={state.graph} />
+          </Grid>
         </Grid>
         <Grid item xs={12}>
           <Typography align="center" variant="h6" className={classes.helper}>

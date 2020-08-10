@@ -5,7 +5,7 @@ import Toolbar from "@material-ui/core/Toolbar"
 import Button from "@material-ui/core/Button"
 import ButtonGroup from "@material-ui/core/ButtonGroup"
 import Slide from "@material-ui/core/Slide"
-import AddValueButton from "./addValueButton"
+import AddValueButton from "./components/addValueButton"
 
 const useStyles = makeStyles(theme => ({
   root: {

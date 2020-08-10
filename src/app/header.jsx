@@ -9,13 +9,13 @@ import MoreIcon from "@material-ui/icons/MoreVert"
 import ArrowBackIcon from "@material-ui/icons/ArrowBack"
 import Menu from "@material-ui/core/Menu"
 import MenuItem from "@material-ui/core/MenuItem"
-import Disclaimer from "./disclaimer"
-import Help from "./help"
+import Disclaimer from "./components/disclaimer"
+import Help from "./components/help"
 import Divider from "@material-ui/core/Divider"
 import useScrollTrigger from "@material-ui/core/useScrollTrigger"
 import Slide from "@material-ui/core/Slide"
 
-import AddValueButton from "./addValueButton"
+import AddValueButton from "./components/addValueButton"
 
 const useStyles = makeStyles(theme => ({
   root: {

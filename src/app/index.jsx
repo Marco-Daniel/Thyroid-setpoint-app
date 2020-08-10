@@ -1,7 +1,7 @@
 import React, { useReducer } from "react"
 import Header from "./header"
 import Footer from "./footer"
-import ScreenController from "./screenController"
+import ScreenController from "./components/screenController"
 import { sort2DArray, medianFromArray } from "../math/array"
 import { calcTshSetpoint, calcFt4Setpoint, calculateCurvature } from "../math/thyroid"
 import ExponentialRegression from "ml-regression-exponential"
@@ -257,8 +257,11 @@ const reducer = (state, action) => {
         console.log("ML library")
       }
 
-      const setpointTSH = round(calcTshSetpoint(slope), 100)
-      const setpointFT4 = round(calcFt4Setpoint(slope, multiplier), 100)
+      const rawSetpointTSH = calcTshSetpoint(slope)
+      const rawSetpointFT4 = calcFt4Setpoint(slope, multiplier)
+
+      const setpointTSH = round(rawSetpointTSH, 100)
+      const setpointFT4 = round(rawSetpointFT4, 100)
 
       const axisPoints = {
         minFT4: round(Math.min(...state.values.map(o => o.ft4), 1000) * 0.9),
@@ -272,6 +275,8 @@ const reducer = (state, action) => {
         setpoint: {
           slope,
           multiplier,
+          rawSetpointFT4,
+          rawSetpointTSH,
           ft4: setpointFT4,
           tsh: setpointTSH,
           r2: rSquared,
