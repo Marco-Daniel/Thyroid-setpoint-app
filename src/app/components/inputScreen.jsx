@@ -3,6 +3,7 @@ import DisplayInput from "./displayInput"
 import Grid from "@material-ui/core/Grid"
 import { makeStyles } from "@material-ui/core/styles"
 import Typography from "@material-ui/core/Typography"
+import { useGlobalState } from "../hooks/useGlobalState"
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -19,8 +20,13 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-const InputScreen = ({ values, dispatch }) => {
+const InputScreen = () => {
   const classes = useStyles()
+  const {
+    state: { values },
+    dispatch,
+  } = useGlobalState()
+
   if (values.length === 0)
     return (
       <Typography align="center" component="h2" variant="h6" className={classes.noValues}>

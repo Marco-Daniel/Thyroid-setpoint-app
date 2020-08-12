@@ -67,7 +67,7 @@ const Disclaimer = ({ onClick }) => {
             <Divider className={classes.divider} />
 
             <Typography variant="h6" gutterBottom>
-              Uitsluiting van aansprakelijkheid{" "}
+              Uitsluiting van aansprakelijkheid
             </Typography>
             <Typography variant="body2" paragraph>
               Alle informatie en functionaliteit in deze app is bedoeld voor persoonlijk gebruik. Deze app is nog volop in ontwikkeling, aan de
@@ -77,16 +77,16 @@ const Disclaimer = ({ onClick }) => {
             </Typography>
 
             <Typography variant="h6" gutterBottom>
-              Beschikbaarheid{" "}
+              Beschikbaarheid
             </Typography>
             <Typography variant="body2" paragraph>
               De informatie en aanbevelingen op deze website kunnen zonder voorafgaande waarschuwing of kennisgeving worden gewijzigd. Wij spannen ons
               in om deze website zo veel mogelijk beschikbaar te stellen, maar wij aanvaarden geen enkele aansprakelijkheid voor eventuele gevolgen
-              van (tijdelijke) niet-beschikbaarheid.{" "}
+              van (tijdelijke) niet-beschikbaarheid.
             </Typography>
 
             <Typography variant="h6" gutterBottom>
-              Auteursrechten en intellectuele eigendomsrechten{" "}
+              Auteursrechten en intellectuele eigendomsrechten
             </Typography>
             <Typography variant="body2">
               Het auteursrecht op deze website berust bij M.D. Design &amp; Development en/of bij aan haar gelieerde entiteiten of bij derden welke

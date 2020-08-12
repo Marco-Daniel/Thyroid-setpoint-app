@@ -7,6 +7,7 @@ import TableBody from "@material-ui/core/TableBody"
 import TableCell from "@material-ui/core/TableCell"
 import TableRow from "@material-ui/core/TableRow"
 import Typography from "@material-ui/core/Typography"
+import { useGlobalState } from "../hooks/useGlobalState"
 
 const useStyles = makeStyles(theme => ({
   table: {
@@ -22,8 +23,11 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-const SetpointTable = ({ setpoint }) => {
+const SetpointTable = () => {
   const classes = useStyles()
+  const {
+    state: { setpoint },
+  } = useGlobalState()
 
   return (
     <TableContainer component={Paper} className={classes.table}>

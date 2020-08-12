@@ -16,6 +16,7 @@ import useScrollTrigger from "@material-ui/core/useScrollTrigger"
 import Slide from "@material-ui/core/Slide"
 
 import AddValueButton from "./components/addValueButton"
+import { useGlobalState } from "./hooks/useGlobalState"
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -52,7 +53,7 @@ const HideOnScroll = ({ children }) => {
   )
 }
 
-const Header = ({ displayBack, dispatch }) => {
+const Header = ({ displayBack }) => {
   const {
     site: {
       siteMetadata: { version },
@@ -66,6 +67,8 @@ const Header = ({ displayBack, dispatch }) => {
       }
     }
   `)
+
+  const { dispatch } = useGlobalState()
 
   const classes = useStyles()
   const [anchorEl, setAnchorEl] = useState(null)
@@ -82,8 +85,8 @@ const Header = ({ displayBack, dispatch }) => {
     handleClose()
   }
 
-  const handleClick = event => {
-    setAnchorEl(event.currentTarget)
+  const handleClick = e => {
+    setAnchorEl(e.currentTarget)
   }
 
   const handleClose = () => {
@@ -112,7 +115,7 @@ const Header = ({ displayBack, dispatch }) => {
 
       <Menu id="more-actions" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
         <MenuItem onClick={clearInput}>Start opnieuw</MenuItem>
-        <AddValueButton dispatch={dispatch} menuItem={handleClose} />
+        <AddValueButton menuItem={handleClose} />
         <Divider className={classes.divider} />
         <MenuItem onClick={() => addExampleData(0)}>Voorbeeld 1</MenuItem>
         <MenuItem onClick={() => addExampleData(1)}>Voorbeeld 2</MenuItem>

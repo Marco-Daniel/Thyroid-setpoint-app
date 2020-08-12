@@ -6,6 +6,7 @@ import DialogActions from "@material-ui/core/DialogActions"
 import DialogContent from "@material-ui/core/DialogContent"
 import DialogContentText from "@material-ui/core/DialogContentText"
 import MenuItem from "@material-ui/core/MenuItem"
+import { useGlobalState } from "../hooks/useGlobalState"
 
 const DisplayErrors = ({ errors }) => {
   const style = { color: "red" }
@@ -21,11 +22,12 @@ const DisplayErrors = ({ errors }) => {
   }
 }
 
-const AddValueButton = ({ dispatch, menuItem }) => {
+const AddValueButton = ({ menuItem }) => {
   const [open, setOpen] = useState(false)
   const [ft4, setFt4] = useState("")
   const [tsh, setTsh] = useState("")
   const [errors, setErrors] = useState({ ft4: [], tsh: [] })
+  const { dispatch } = useGlobalState()
 
   const handleClose = () => {
     cleanState()

@@ -6,6 +6,7 @@ import Button from "@material-ui/core/Button"
 import ButtonGroup from "@material-ui/core/ButtonGroup"
 import Slide from "@material-ui/core/Slide"
 import AddValueButton from "./components/addValueButton"
+import { useGlobalState } from "./hooks/useGlobalState"
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -29,8 +30,9 @@ const useStyles = makeStyles(theme => ({
   offset: theme.mixins.toolbar,
 }))
 
-const Footer = ({ dispatch, disableSetpointButton, hide }) => {
+const Footer = ({ disableSetpointButton, hide }) => {
   const classes = useStyles()
+  const { dispatch } = useGlobalState()
 
   const calculateSetpoint = () => dispatch({ type: "CALC_SETPOINT" })
 
@@ -43,7 +45,7 @@ const Footer = ({ dispatch, disableSetpointButton, hide }) => {
               <Button variant="outlined" disabled={disableSetpointButton} onClick={calculateSetpoint} className={classes.secondaryButton}>
                 Bereken setpoint
               </Button>
-              <AddValueButton dispatch={dispatch} />
+              <AddValueButton />
             </ButtonGroup>
           </Toolbar>
         </AppBar>

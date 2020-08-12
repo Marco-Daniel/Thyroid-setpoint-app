@@ -6,6 +6,7 @@ import Button from "@material-ui/core/Button"
 import ButtonGroup from "@material-ui/core/ButtonGroup"
 import Divider from "@material-ui/core/Divider"
 import Typography from "@material-ui/core/Typography"
+import { useGlobalState } from "../hooks/useGlobalState"
 
 const validated = state => {
   const parsed = {
@@ -57,12 +58,13 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-const GraphController = ({ dispatch, graphSettings }) => {
+const GraphController = ({ graphSettings }) => {
   const classes = useStyles()
   const [minFT4, setMinFT4] = useState(graphSettings.minFT4)
   const [maxFT4, setMaxFT4] = useState(graphSettings.maxFT4)
   const [minTSH, setMinTSH] = useState(graphSettings.minTSH)
   const [maxTSH, setMaxTSH] = useState(graphSettings.maxTSH)
+  const { dispatch } = useGlobalState()
 
   const handleSubmit = e => {
     e.preventDefault()

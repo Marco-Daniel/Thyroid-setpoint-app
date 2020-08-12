@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from "react"
 import Chart from "chart.js"
 import { decreasingNumbersArray } from "../../math/array"
 import { ft4ToTSH } from "../../math/thyroid"
+import { useGlobalState } from "../hooks/useGlobalState"
 
 const createSmoothLine = (slope, multiplier) => {
   const values = decreasingNumbersArray(30, 0.5)
@@ -11,8 +12,9 @@ const createSmoothLine = (slope, multiplier) => {
   }, [])
 }
 
-const DisplayGraph = ({ state, dispatch }) => {
+const DisplayGraph = () => {
   const canvasRef = useRef()
+  const { state, dispatch } = useGlobalState()
 
   useEffect(() => {
     const ref = canvasRef.current

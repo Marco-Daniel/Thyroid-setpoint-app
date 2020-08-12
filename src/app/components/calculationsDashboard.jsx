@@ -6,6 +6,7 @@ import Paper from "@material-ui/core/Paper"
 import DisplayGraph from "./displayGraph"
 import GraphController from "./graphController"
 import SetpointTable from "./setpointTable"
+import { useGlobalState } from "../hooks/useGlobalState"
 
 const errorInCalculations = setpoint => {
   // if it passed al validations this function returns false
@@ -37,7 +38,6 @@ const useStyles = makeStyles(theme => ({
     paddingTop: theme.spacing(1),
   },
   graph: {
-    // margin: `${theme.spacing(0.5)}px ${theme.spacing(2)}px ${theme.spacing(2)}px`,
     paddingTop: theme.spacing(3),
     paddingBottom: theme.spacing(1),
     paddingRight: theme.spacing(2),
@@ -46,8 +46,9 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-const CalculationsDashboard = ({ state, dispatch }) => {
+const CalculationsDashboard = () => {
   const classes = useStyles()
+  const { state, dispatch } = useGlobalState()
 
   useEffect(() => {
     if (state.values.length === 0) dispatch({ type: "SWITCH_SCREEN", payload: "user-input" })
@@ -67,10 +68,10 @@ const CalculationsDashboard = ({ state, dispatch }) => {
       <Grid container justify="center" align="center" spacing={2}>
         <Grid container justify="center" align="center" spacing={2} item xs={12}>
           <Grid item xs={12} sm={5} md={3}>
-            <SetpointTable setpoint={state.setpoint} />
+            <SetpointTable />
           </Grid>
           <Grid item xs={12} sm={7} md={3}>
-            <GraphController dispatch={dispatch} graphSettings={state.graph} />
+            <GraphController graphSettings={state.graph} />
           </Grid>
         </Grid>
         <Grid item xs={12}>
@@ -79,7 +80,7 @@ const CalculationsDashboard = ({ state, dispatch }) => {
           </Typography>
         </Grid>
         <Grid item xs={12} component={Paper} className={classes.graph}>
-          <DisplayGraph state={state} dispatch={dispatch} />
+          <DisplayGraph />
         </Grid>
       </Grid>
     </div>
