@@ -107,7 +107,7 @@ const DisplayGraph = ({ state, dispatch }) => {
     }
   }, [state, dispatch])
 
-  return <canvas ref={canvasRef} />
+  return <canvas ref={canvasRef} style={{ cursor: "pointer" }} />
 }
 
 export default DisplayGraph
