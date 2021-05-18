@@ -480,5 +480,29 @@ export default [
       dosis: 113,
       merk: "euthyrox",
     },
+    {
+      ft4: 16.9,
+      tsh: 5.94,
+      dosis: 106.5,
+      merk: "euthyrox",
+    },
+    {
+      ft4: 22.6,
+      tsh: 0.1,
+      dosis: 119,
+      merk: "euthyrox",
+    },
+    {
+      ft4: 23.1,
+      tsh: 0.32,
+      dosis: 106,
+      merk: "euthyrox",
+    },
+    {
+      ft4: 16.4,
+      tsh: 4.95,
+      dosis: 106,
+      merk: "euthyrox",
+    },
   ],
 ]
