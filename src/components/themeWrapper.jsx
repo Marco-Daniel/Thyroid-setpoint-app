@@ -4,8 +4,8 @@ import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles"
 import CssBaseline from "@material-ui/core/CssBaseline"
 
 const toolbarHeight = 50
-const primaryColor = "#292A2C"
-const secondaryColor = "#2DA3D3"
+const primaryColor = "#614385"
+const secondaryColor = "#516395"
 
 const ThemeWrapper = ({ children }) => {
   const defaultTheme = createMuiTheme()
