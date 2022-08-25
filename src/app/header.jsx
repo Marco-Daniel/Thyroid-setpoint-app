@@ -16,6 +16,7 @@ import useScrollTrigger from "@material-ui/core/useScrollTrigger"
 import Slide from "@material-ui/core/Slide"
 import HelpScreen from "./components/helpScreen"
 import logo from "../images/logo.png"
+import clsx from "clsx"
 
 import AddValueButton from "./components/addValueButton"
 import { useGlobalState } from "./hooks/useGlobalState"
@@ -32,9 +33,17 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    [[theme.breakpoints.down("sm")]]: {
+      transform: "translateX(calc(-50% - 38px)) translateY(-50%)",
+    },
   },
   img: {
     margin: theme.spacing(1.5),
+  },
+  hideImg: {
+    [[theme.breakpoints.down("sm")]]: {
+      display: "none",
+    },
   },
   alignRight: {
     marginRight: 0,
@@ -120,7 +129,7 @@ const Header = ({ displayBack }) => {
               <Typography variant="h5" component="h1" align="center">
                 Setpoint Calculator
               </Typography>
-              <img alt="logo" src={logo} width={42} className={classes.img} />
+              <img alt="logo" src={logo} width={42} className={clsx(classes.img, classes.hideImg)} />
             </div>
             <IconButton
               aria-label="display more-actions"
