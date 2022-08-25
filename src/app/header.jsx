@@ -6,14 +6,16 @@ import Toolbar from "@material-ui/core/Toolbar"
 import Typography from "@material-ui/core/Typography"
 import IconButton from "@material-ui/core/IconButton"
 import MoreIcon from "@material-ui/icons/MoreVert"
+import HelpOutlineIcon from "@material-ui/icons/HelpOutline"
 import ArrowBackIcon from "@material-ui/icons/ArrowBack"
 import Menu from "@material-ui/core/Menu"
 import MenuItem from "@material-ui/core/MenuItem"
 import Disclaimer from "./components/disclaimer"
-import Help from "./components/help"
 import Divider from "@material-ui/core/Divider"
 import useScrollTrigger from "@material-ui/core/useScrollTrigger"
 import Slide from "@material-ui/core/Slide"
+import HelpScreen from "./components/helpScreen"
+import logo from "../images/logo.png"
 
 import AddValueButton from "./components/addValueButton"
 import { useGlobalState } from "./hooks/useGlobalState"
@@ -27,6 +29,12 @@ const useStyles = makeStyles(theme => ({
     top: "50%",
     left: "50%",
     transform: "translateX(-50%) translateY(-50%)",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  img: {
+    margin: theme.spacing(1.5),
   },
   alignRight: {
     marginRight: 0,
@@ -73,6 +81,10 @@ const Header = ({ displayBack }) => {
   const classes = useStyles()
   const [anchorEl, setAnchorEl] = useState(null)
 
+  const [openHelp, setOpenHelp] = useState(false)
+  const handleHelpClose = () => setOpenHelp(false)
+  const handleHelpOpen = () => setOpenHelp(true)
+
   const goToDisplayValues = () => dispatch({ type: "SWITCH_SCREEN", payload: "user-input" })
 
   const addExampleData = index => {
@@ -103,10 +115,23 @@ const Header = ({ displayBack }) => {
                 <ArrowBackIcon />
               </IconButton>
             )}
-            <Typography variant="h5" component="h1" align="center" className={classes.title}>
-              Setpoint Calculator
-            </Typography>
-            <IconButton aria-label="display more-actions" aria-haspopup="true" onClick={handleClick} color="inherit" className={classes.alignRight}>
+            <div className={classes.title}>
+              <img alt="logo" src={logo} width={42} className={classes.img} />
+              <Typography variant="h5" component="h1" align="center">
+                Setpoint Calculator
+              </Typography>
+              <img alt="logo" src={logo} width={42} className={classes.img} />
+            </div>
+            <IconButton
+              aria-label="display more-actions"
+              aria-haspopup="true"
+              color="inherit"
+              onClick={handleHelpOpen}
+              className={classes.alignRight}
+            >
+              <HelpOutlineIcon />
+            </IconButton>
+            <IconButton aria-label="display more-actions" aria-haspopup="true" onClick={handleClick} color="inherit">
               <MoreIcon />
             </IconButton>
           </Toolbar>
@@ -122,7 +147,14 @@ const Header = ({ displayBack }) => {
         <MenuItem onClick={() => addExampleData(2)}>Voorbeeld 3</MenuItem>
         <MenuItem onClick={() => addExampleData(3)}>Voorbeeld 4</MenuItem>
         <Divider className={classes.divider} />
-        <Help onClick={handleClose} />
+        <MenuItem
+          onClick={() => {
+            handleClose()
+            handleHelpOpen()
+          }}
+        >
+          Help
+        </MenuItem>
         <Disclaimer onClick={handleClose} />
         <MenuItem onClick={handleClose} component="a" href="mailto:marco@mddd.nl" rel="noreferrer noopener" target="_blank">
           Geef feedback
@@ -142,6 +174,8 @@ const Header = ({ displayBack }) => {
         <Divider className={classes.divider} />
         <MenuItem dense disabled className={classes.version}>{`Versie: ${version}`}</MenuItem>
       </Menu>
+
+      <HelpScreen open={openHelp} handleClose={handleHelpClose} />
     </>
   )
 }
