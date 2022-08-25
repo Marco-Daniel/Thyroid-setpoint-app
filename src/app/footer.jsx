@@ -16,6 +16,9 @@ const useStyles = makeStyles(theme => ({
     top: "auto",
     bottom: 0,
   },
+  toolBar: {
+    backgroundColor: theme.palette.primary.light,
+  },
   buttons: {
     margin: "0 auto",
   },
@@ -25,6 +28,7 @@ const useStyles = makeStyles(theme => ({
     borderRight: "none",
     "&:hover": {
       borderRight: "none",
+      borderColor: theme.palette.primary.dark,
     },
   },
   offset: theme.mixins.toolbar,
@@ -40,7 +44,7 @@ const Footer = ({ disableSetpointButton, hide }) => {
     <div className={classes.root}>
       <Slide appear={false} direction="up" in={!hide}>
         <AppBar position="fixed" className={classes.appBar}>
-          <Toolbar>
+          <Toolbar className={classes.toolBar}>
             <ButtonGroup disableElevation size="small" className={classes.buttons} color="secondary">
               <Button variant="outlined" disabled={disableSetpointButton} onClick={calculateSetpoint} className={classes.secondaryButton}>
                 Bereken setpoint

@@ -80,7 +80,7 @@ const AddValueButton = ({ menuItem }) => {
         <Button
           variant="contained"
           onClick={() => setOpen(true)}
-          color="secondary"
+          color="primary"
           disableElevation
           style={{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }}
           children={text}
