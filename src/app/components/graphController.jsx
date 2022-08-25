@@ -146,10 +146,10 @@ const GraphController = ({ graphSettings }) => {
         </div>
 
         <ButtonGroup disableElevation size="small" orientation="vertical" className={classes.inputs}>
-          <Button type="submit" disabled={!validated({ minFT4, maxFT4, minTSH, maxTSH })} color="secondary" variant="contained">
+          <Button type="submit" disabled={!validated({ minFT4, maxFT4, minTSH, maxTSH })} color="primary" variant="contained">
             Wijzig
           </Button>
-          <Button color="secondary" variant="outlined" onClick={handleReset} className={classes.reset}>
+          <Button color="primary" variant="outlined" onClick={handleReset} className={classes.reset}>
             Reset
           </Button>
         </ButtonGroup>
