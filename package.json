@@ -1,9 +1,9 @@
 {
-  "name": "gatsby-starter-default",
+  "name": "thyroid-setpoint-calculator",
   "private": true,
-  "description": "A simple starter to get up and developing quickly with Gatsby",
-  "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "description": "Gebruik deze app om uw schildklier setpoint te berekenen.",
+  "version": "1.0.1",
+  "author": "Marco D. Leguijt <marco@mddd.nl>",
   "dependencies": {
     "@material-ui/core": "^4.9.14",
     "@material-ui/icons": "^4.9.1",
@@ -47,9 +47,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/gatsbyjs/gatsby-starter-default"
+    "url": "https://github.com/Marco-Daniel/Thyroid-setpoint-app"
   },
   "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
+    "url": "https://github.com/Marco-Daniel/Thyroid-setpoint-app/issues"
   }
 }
