@@ -22,7 +22,7 @@ const DisplayErrors = ({ errors }) => {
   }
 }
 
-const AddValueButton = ({ menuItem }) => {
+const AddValueButton = ({ menuItem, CustomButton }) => {
   const [open, setOpen] = useState(false)
   const [ft4, setFt4] = useState("")
   const [tsh, setTsh] = useState("")
@@ -76,6 +76,8 @@ const AddValueButton = ({ menuItem }) => {
           }}
           children={text}
         />
+      ) : CustomButton ? (
+        <CustomButton onClick={() => setOpen(true)} />
       ) : (
         <Button
           variant="contained"
