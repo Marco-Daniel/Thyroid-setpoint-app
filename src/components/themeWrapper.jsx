@@ -20,6 +20,9 @@ const ThemeWrapper = ({ children }) => {
       secondary: {
         main: secondaryColor,
       },
+      background: {
+        default: "#EFECF3",
+      },
     },
     mixins: {
       toolbar: {
